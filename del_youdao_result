@@ -1,0 +1,10 @@
+#!/bin/sh
+if [ -f /tmp/youdao_del_pid ];then
+    kill $(cat /tmp/youdao_del_pid)
+fi
+echo $$ > /tmp/youdao_del_pid
+killall -USR1 i3status
+sleep 10
+rm /tmp/youdao_result
+killall -USR1 i3status
+rm /tmp/youdao_del_pid

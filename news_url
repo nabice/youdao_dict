@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ -f /tmp/youdao_result ];then
+    youdao_word=$(cat /tmp/youdao_word)
+    /usr/bin/chromium-browser %U "https://www.collinsdictionary.com/dictionary/english/$youdao_word"
+else
+    /usr/bin/chromium-browser %U $(sed -n "$(expr $(expr $(expr `date +%s` % 1200) / 60) + 1)s/|.*$//p" /tmp/news_url)
+fi
+   

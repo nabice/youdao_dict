@@ -1,0 +1,25 @@
+#!/bin/bash
+
+echo '{ "version": 1 }'
+echo '['
+i3status | while :
+do
+    read line
+    echo '['
+    if [ -f /tmp/youdao_result ];then
+        info=$(cat /tmp/youdao_result)
+        info=${info//\"/\\\"}
+        echo '{"full_text": "'"$info"'", "markup": "pango", "separator": false, "align": "left", "min_width": 1510}, '
+    else
+        air=$(cat /tmp/text2display)
+        weather=$(cat /tmp/weather)
+        news=$(sed -n "$(expr $(expr $(expr `date +%s` % 1200) / 60) + 1)s/^.*|//p" /tmp/news_url)
+        news=${news//\"/\\\"}
+        echo '{"full_text": "'"$weather"'", "separator_block_width": 50, "separator": false}, '
+        echo '{"full_text": "'"$news"'", "separator_block_width": 50, "separator": false}, '
+        echo '{"full_text": "'"$air"'", "separator_block_width": 50, "separator": false}, '
+    fi
+    echo '{"full_text": "'"$line"'"}'
+    echo '],'
+done
+echo ']'
