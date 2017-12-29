@@ -1,3 +1,3 @@
 # youdao_dict
 
-Youdao Dict Works with i3 status bar.
+Youdao Dict works with i3 status bar.
